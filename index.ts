@@ -12,7 +12,7 @@ const run = async () => {
   await fileDb.init();
 
   app.listen(port, () => {
-    console.log(`Server started  on ${port} port!`);
+    console.log("Server %s on %d port!", "start", port);
   });
 };
 

@@ -1,5 +1,5 @@
 import { Product, ProductWithoutId } from "../types";
-import crypto from "crypto";
+import crypto from "node:crypto";
 import readFile from "./readFile";
 import writeFile from "./writeFile";
 
