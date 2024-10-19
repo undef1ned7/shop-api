@@ -1,6 +1,6 @@
 import express from "express";
 import fileDb from "../file/fileDb";
-import { imagesUpload } from "../file/multer";
+import { getImageURL, imagesUpload } from "../file/multer";
 import { ProductWithoutId } from "../types";
 const productsRouter = express.Router();
 
@@ -20,15 +20,11 @@ productsRouter.post("/", imagesUpload.single("image"), async (req, res) => {
     title: req.body.title,
     description: req.body.description,
     price: parseInt(req.body.price),
-    image: req.file ? req.file.filename : null,
+    image: req.file ? getImageURL(req.file.filename) : null,
   };
 
   const savedProduct = await fileDb.addItem(product);
   res.send(savedProduct);
-});
-
-productsRouter.patch("/", async (req, res) => {
-  // const
 });
 
 export default productsRouter;

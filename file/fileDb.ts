@@ -27,6 +27,21 @@ const fileDb = {
     const product = data.find((item) => item.id === id);
     return product || null;
   },
+  async updateItem(id: string, updatedData: Partial<ProductWithoutId>) {
+    const productIndex = data.findIndex((item) => item.id === id);
+    if (productIndex === -1) {
+      return null;
+    }
+    const existingProduct = data[productIndex];
+    const updatedProduct = {
+      ...existingProduct,
+      ...updatedData,
+    };
+    data[productIndex] = updatedProduct;
+    await this.save();
+
+    return updatedProduct;
+  },
 
   async save() {
     await writeFile(filename, data);

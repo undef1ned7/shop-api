@@ -2,8 +2,9 @@ import multer from "multer";
 import { promises as fs } from "fs";
 import path from "path";
 import { randomUUID } from "crypto";
-
 import config from "../config";
+
+const baseURL = "http://localhost:8000/";
 
 const imageStorage = multer.diskStorage({
   destination: async (_req, _file, cb) => {
@@ -16,9 +17,16 @@ const imageStorage = multer.diskStorage({
 
   filename: (_req, file, cb) => {
     const extension = path.extname(file.originalname);
+    const filename = "images" + randomUUID() + extension;
 
-    cb(null, "images" + randomUUID() + extension);
+    const imagePath = path.join("images", filename);
+
+    cb(null, filename);
   },
 });
 
 export const imagesUpload = multer({ storage: imageStorage });
+
+export const getImageURL = (filename: string) => {
+  return `${baseURL}/images/${filename}`;
+};
