@@ -4,7 +4,7 @@ import path from "path";
 import { randomUUID } from "crypto";
 import config from "../config";
 
-const baseURL = "http://localhost:8000/";
+const baseURL = "http://localhost:8000";
 
 const imageStorage = multer.diskStorage({
   destination: async (_req, _file, cb) => {
