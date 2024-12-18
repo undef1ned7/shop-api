@@ -1,8 +1,8 @@
-export interface Product {
-  id: string;
+export interface ProductMutation {
+  category: string;
   title: string;
-  price: number;
   description: string;
+  price: number;
   image: string | null;
 }
 export type ProductWithoutId = Omit<Product, "id">;
