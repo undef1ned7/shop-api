@@ -7,10 +7,10 @@ const ProductSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Category",
     required: true,
-    validate: {
-      validator: async (value: Types.ObjectId) => Category.findById(value),
-      message: "Category does not exist!",
-    },
+    // validate: {
+    //   validator: async (value: Types.ObjectId) => Category.findById(value),
+    //   message: "Category does not exist!",
+    // },
   },
   title: {
     type: String,

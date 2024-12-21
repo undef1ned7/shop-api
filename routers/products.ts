@@ -7,7 +7,7 @@ const productsRouter = express.Router();
 
 productsRouter.get("/", async (req: any, res: any) => {
   try {
-    const products = await Product.find();
+    const products = await Product.find().populate("category");
     return res.send(products);
   } catch (e) {
     return res.sendStatus(500);
