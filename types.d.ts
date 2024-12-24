@@ -1,8 +1,13 @@
-export interface ProductMutation {
+export type ProductMutation = {
   category: string;
   title: string;
   description: string;
   price: number;
   image: string | null;
-}
-export type ProductWithoutId = Omit<Product, "id">;
+};
+
+export type IUser = {
+  username: string;
+  password: string;
+  token: string;
+};
