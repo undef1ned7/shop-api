@@ -2,6 +2,8 @@ import bcrypt from "bcrypt";
 import { Model, Schema, model } from "mongoose";
 import { IUser } from "../types";
 import { randomUUID } from "node:crypto";
+import jwt from "jsonwebtoken";
+import config from "../config";
 const SALT_WORK_FACTOR = 10;
 
 interface IUserMethods {
@@ -49,7 +51,11 @@ UserSchema.methods.checkPassword = function (password) {
 };
 
 UserSchema.methods.generateToken = function () {
-  this.token = randomUUID();
+  const secret: string = config.JWT_SECRET;
+  if (!secret) {
+    throw new Error("JWT_SECRET is not defined");
+  }
+  this.token = jwt.sign({ id: this._id }, secret, { expiresIn: "30d" });
 };
 
 const User = model<IUser, UserModel>("User", UserSchema);

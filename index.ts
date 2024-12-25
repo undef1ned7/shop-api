@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import categoriesRouter from "./routers/categories";
 import productsRouter from "./routers/products";
 import usersRouter from "./routers/users";
+import config from "./config";
 
 const app = express();
 const port = 8000;
@@ -15,7 +16,7 @@ app.use("/categories", categoriesRouter);
 app.use("/users", usersRouter);
 const run = async () => {
   mongoose.set("strictQuery", false);
-  await mongoose.connect("mongodb://localhost:27017/shop");
+  await mongoose.connect(config.db);
 
   app.listen(port, () => {
     console.log("Server %s on %d port!", "start", port);

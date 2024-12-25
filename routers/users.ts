@@ -1,11 +1,12 @@
-import express, { Request } from "express";
+import express, { NextFunction, Request, Response, Send } from "express";
 import { Error } from "mongoose";
 import User from "../models/User";
 import auth, { RequestWithUser } from "../middleware/auth";
+import { IUser } from "../types";
 
 const usersRouter = express.Router();
 
-usersRouter.post("/", async (req: any, res: any, next: any) => {
+usersRouter.post("/", async (req, res, next) => {
   try {
     const user = new User({
       username: req.body.username,
@@ -24,7 +25,7 @@ usersRouter.post("/", async (req: any, res: any, next: any) => {
   }
 });
 
-usersRouter.post("/sessions", async (req: any, res: any) => {
+usersRouter.post("/sessions", async (req, res) => {
   const user = await User.findOne({ username: req.body.username });
   if (!user) {
     return res.status(400).send({ error: "Username not found" });
