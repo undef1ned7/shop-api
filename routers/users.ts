@@ -1,8 +1,7 @@
-import express, { NextFunction, Request, Response, Send } from "express";
+import express from "express";
 import { Error } from "mongoose";
-import User from "../models/User";
 import auth, { RequestWithUser } from "../middleware/auth";
-import { IUser } from "../types";
+import User from "../models/User";
 
 const usersRouter = express.Router();
 
@@ -15,7 +14,7 @@ usersRouter.post("/", async (req, res, next) => {
 
     user.generateToken();
     await user.save();
-    return res.send(user);
+    return res.send({ message: "Register successfully!", user });
   } catch (e) {
     if (e instanceof Error.ValidationError) {
       return res.status(400).send(e);

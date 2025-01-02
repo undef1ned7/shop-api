@@ -6,7 +6,7 @@ import { Error } from "mongoose";
 import auth from "../middleware/auth";
 const productsRouter = express.Router();
 
-productsRouter.get("/", auth, async (req: Request, res: Response) => {
+productsRouter.get("/", async (req: Request, res: Response) => {
   try {
     const products = await Product.find().populate("category");
     return res.send(products);
@@ -15,7 +15,7 @@ productsRouter.get("/", auth, async (req: Request, res: Response) => {
   }
 });
 
-productsRouter.get("/:id", auth, async (req, res) => {
+productsRouter.get("/:id", async (req, res) => {
   try {
     const result = await Product.findById(req.params.id);
 
@@ -32,7 +32,7 @@ productsRouter.get("/:id", auth, async (req, res) => {
 productsRouter.post(
   "/",
   imagesUpload.single("image"),
-  auth,
+
   async (req: any, res: any, next: any) => {
     if (!req.body.title || !req.body.price) {
       return res.status(400).send({ error: "All fields are required" });
@@ -61,7 +61,7 @@ productsRouter.post(
   }
 );
 
-productsRouter.patch("/:id", auth, async (req, res, next) => {
+productsRouter.patch("/:id", async (req, res, next) => {
   const result = await Product.findById(req.params.id);
 
   try {

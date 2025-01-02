@@ -1,9 +1,8 @@
 import bcrypt from "bcrypt";
-import { Model, Schema, model } from "mongoose";
-import { IUser } from "../types";
-import { randomUUID } from "node:crypto";
 import jwt from "jsonwebtoken";
+import { Model, Schema, model } from "mongoose";
 import config from "../config";
+import { IUser } from "../types";
 const SALT_WORK_FACTOR = 10;
 
 interface IUserMethods {

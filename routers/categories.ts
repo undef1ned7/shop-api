@@ -4,7 +4,7 @@ import Category from "../models/Category";
 import auth from "../middleware/auth";
 const categoriesRouter = express.Router();
 
-categoriesRouter.get("/", auth, async (req: any, res: any, next: any) => {
+categoriesRouter.get("/", async (req: any, res: any, next: any) => {
   try {
     const categories = await Category.find();
     return res.send(categories);
@@ -13,7 +13,7 @@ categoriesRouter.get("/", auth, async (req: any, res: any, next: any) => {
   }
 });
 
-categoriesRouter.post("/", auth, async (req: any, res: any, next: any) => {
+categoriesRouter.post("/", async (req: any, res: any, next: any) => {
   const categoryData = {
     title: req.body.title,
     description: req.body.description,
