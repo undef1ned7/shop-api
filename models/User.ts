@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { Model, Schema, model } from "mongoose";
+import { HydratedDocument, Model, Schema, model } from "mongoose";
 import config from "../config";
 import { IUser } from "../types";
 const SALT_WORK_FACTOR = 10;
@@ -17,6 +17,20 @@ const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
     type: String,
     required: true,
     unique: true,
+    validate: {
+      validator: async function (
+        this: HydratedDocument<IUser>,
+        username: string
+      ): Promise<boolean> {
+        if (!this.isModified("username")) return true;
+
+        const user: HydratedDocument<IUser> | null = await User.findOne({
+          username,
+        });
+        return !Boolean(user);
+      },
+      message: "This user is already registered",
+    },
   },
   password: {
     type: String,

@@ -20,7 +20,7 @@ usersRouter.post("/", async (req, res, next) => {
       return res.status(400).send(e);
     } else {
       return next(e);
-    }
+    };
   }
 });
 
